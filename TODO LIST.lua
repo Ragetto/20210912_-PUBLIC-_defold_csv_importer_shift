@@ -1,0 +1,5 @@
+-- 2021-09-09 # P0 Display the total income rate ==> TBD but  need to store building info in a table updated everytime a building is upgraded
+-- 2021-09-09 # P0 Main building's level as a requirement for the others
+-- 2021-09-09 # P1 Bug? => sometimes the click is not taken into account (when upgrading)
+-- 2021-09-09 # P2 Scrolling? (rendercam)
+-- 2021-09-09 # P1 Config in excel

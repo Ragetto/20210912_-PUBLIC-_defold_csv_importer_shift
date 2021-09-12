@@ -1,0 +1,55 @@
+---========================---
+---== LUA MODULE IMPORTS ==---
+---========================---
+local debugdraw = require "lua-modules.libs-defold.debug-draw.debug-draw"
+local csv = require "lua-modules.libs-defold.csv-importer.csv-importer"
+
+---========================---
+---========================---
+
+function init(self)
+
+	--============================
+	-- buildings / Config import (csv) TEMP
+	--============================
+	local config_path = "/gameconfigs/buildings.csv"
+	csv.import(config_path)
+	self.gameparam_table_length = csv.get_nb_rows(config_path)
+
+	csv.set_param_config("income_rate")
+	self.table_income_rate = {}
+	for i=1,self.gameparam_table_length do
+		table.insert(self.table_income_rate, csv.get(i))
+	end
+
+	csv.set_param_config("upgrade_cost")
+	self.table_upgrade_cost = {}
+	for i=1,self.gameparam_table_length do
+		table.insert(self.table_upgrade_cost, csv.get(i))
+	end
+
+	--============================
+	--============================
+	--============================
+		
+	msg.post(".", "acquire_input_focus")
+	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })	
+
+end
+
+function update(self, dt)
+
+	debugdraw.text("gameparam_table_length: "..self.gameparam_table_length, 10, 635, color)
+
+	local debug_pos_x = 10
+	local debug_pos_y = 600
+	local debug_pos_y_diff = 15
+	for i=1,self.gameparam_table_length do
+		debugdraw.text("income_rate-Lvl"..i.." > "..self.table_income_rate[i].." / upgrade_cost-Lvl"..i.." > "..self.table_upgrade_cost[i], debug_pos_x, debug_pos_y, color)
+		debug_pos_y = debug_pos_y - debug_pos_y_diff
+		--debugdraw.text("ID"..i.." > "..polyglot.get(i), debug_pos_x, debug_pos_y, color)
+		--debug_pos_y = debug_pos_y - debug_pos_y_diff
+	end
+
+end
+	
